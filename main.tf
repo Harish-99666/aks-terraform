@@ -30,10 +30,14 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 }
 
+
 provider "kubernetes" {
-  config_context_cluster   = azurerm_kubernetes_cluster.k8s.name
-  config_path              = "~/.kube/config"  # Path to your kubeconfig file
+  host                   = azurerm_kubernetes_cluster.k8s.kube_config.0.host
+  client_certificate     = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_certificate)
+  client_key             = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_key)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.cluster_ca_certificate)
 }
+
 
 resource "kubernetes_deployment" "hello_world_app" {
   metadata {
@@ -61,7 +65,7 @@ resource "kubernetes_deployment" "hello_world_app" {
 
       spec {
         container {
-          image = "hello-world:latest"
+          image = "tutum/hello-world"
           name  = "hello-world"
 
           port {
