@@ -8,7 +8,6 @@ on:
 permissions:
   contents: read
 
-runs-on: self-hosted
 
 jobs:
   terraform:
@@ -18,8 +17,8 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-    runs-on: ubuntu-latest
-    environment: production
+    runs-on: self-hosted
+    environment: development
 
     defaults:
       run:
@@ -33,17 +32,17 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        working-directory: aks-terraform
+        working-directory: .
         run: terraform init
 
       - name: Terraform Format
-        working-directory: aks-terraform
+        working-directory: .
         run: terraform fmt
 
       - name: Terraform Plan
-        working-directory: aks-terraform
+        working-directory: .
         run: terraform plan
 
       - name: Terraform Apply
-        working-directory: aks-terraform
+        working-directory: .
         run: terraform apply -auto-approve
