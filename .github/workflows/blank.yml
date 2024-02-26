@@ -3,7 +3,7 @@ name: 'AKS Deployment'
 on:
   push:
     branches:
-      - main  # Adjust this to match the branch where you want to trigger the workflow
+      - master  # Adjust this to match the branch where you want to trigger the workflow
 
 permissions:
   contents: read
