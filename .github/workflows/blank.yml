@@ -33,12 +33,15 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: aks-terraform
 
       - name: Terraform Format
         run: terraform fmt
+        working-directory: aks-terraform
 
       - name: Terraform Plan
         run: terraform plan
+        working-directory: aks-terraform
 
       # - name: Terraform Apply
       #   run: terraform apply -auto-approve
