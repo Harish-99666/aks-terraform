@@ -3,10 +3,12 @@ name: 'AKS Deployment'
 on:
   push:
     branches:
-      - master  # Adjust this to match the branch where you want to trigger the workflow
+      - main  # Adjust this to match the branch where you want to trigger the workflow
 
 permissions:
   contents: read
+
+runs-on: self-hosted
 
 jobs:
   terraform:
@@ -24,24 +26,24 @@ jobs:
         shell: bash
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
 
-    - name: Terraform Init
-      working-directory: aks-terraform
-      run: terraform init
+      - name: Terraform Init
+        working-directory: aks-terraform
+        run: terraform init
 
-    - name: Terraform Format
-      working-directory: aks-terraform
-      run: terraform fmt
+      - name: Terraform Format
+        working-directory: aks-terraform
+        run: terraform fmt
 
-    - name: Terraform Plan
-      working-directory: aks-terraform
-      run: terraform plan
+      - name: Terraform Plan
+        working-directory: aks-terraform
+        run: terraform plan
 
-    - name: Terraform Apply
-      working-directory: aks-terraform
-      run: terraform apply -auto-approve
+      - name: Terraform Apply
+        working-directory: aks-terraform
+        run: terraform apply -auto-approve
