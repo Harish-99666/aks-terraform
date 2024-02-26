@@ -32,15 +32,15 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        working-directory: ${{ github.workspace }}/aks-terraform
+        working-directory: ${{ github.workspace }}
         run: terraform init
 
       - name: Terraform Format
-        working-directory: ${{ github.workspace }}/aks-terraform
+        working-directory: ${{ github.workspace }}
         run: terraform fmt
 
       - name: Terraform Plan
-        working-directory: ${{ github.workspace }}/aks-terraform
+        working-directory: ${{ github.workspace }}
         run: terraform plan
 
       - name: Terraform Apply
